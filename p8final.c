@@ -26,18 +26,34 @@ void find_areas_n(int n, Triangle t[n])
       t[i].area=0.5*t[i].base*t[i].altitude;
     }
 }
-
-void output(int n, Triangle t[n])
+Triangle find_smallest_triangle(int n, Triangle t[n])
 {
+  Triangle smallest;
+  smallest.area=t[0].area;
+  for(int i=0; i<n; i++)
+    {
+      if(t[i].area<smallest.area)
+        smallest.area=t[i].area;
+    }
+  return smallest;
+}
+void output(int n, Triangle t[n], Triangle smallest)
+{
+  printf("the smallest area between");
 for(int i=0; i<n; i++)
-  printf("%f ",t[i].area);
+{
+  printf("%f  ",t[i].area);
+}
+  printf("is %f",smallest.area);
 }
 int main()
 {
   int n=input_n();
+  Triangle smallest;
   Triangle t[20];
   input_n_triangles(n,t);
   find_areas_n(n,t);
-  output(n,t);
+  smallest=find_smallest_triangle(n,t);
+  output(n,t,smallest);
   return 0;
 }
